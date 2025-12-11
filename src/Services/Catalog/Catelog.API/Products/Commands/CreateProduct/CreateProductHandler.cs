@@ -1,6 +1,5 @@
 ﻿using BuildingBlocks.CQRS;
-using MediatR;
-using System.Windows.Input;
+using Catelog.API.Models;
 
 namespace Catelog.API.Products.Commands.CreateProduct
 {
@@ -12,7 +11,21 @@ namespace Catelog.API.Products.Commands.CreateProduct
     {
         public Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            // create Product entity from command object 
+            // save to database
+            //return CreateProductResult result
+
+            var product = new Product
+            {
+                Name = command.Name,
+                Category = command.Category,
+                Description = command.Description,
+                ImgaeFile = command.ImgaeFile,
+                Price = command.Price
+            };
+
+            return Task.FromResult(new CreateProductResult(Guid.NewGuid()));
+
         }
     }
 }
