@@ -1,6 +1,6 @@
 services:
- Catalogdb:
-  image: postgres
+ catalogdb:
+  image: postgres:17-alpine
 
 
 volumes:
