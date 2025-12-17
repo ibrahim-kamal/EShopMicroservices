@@ -11,18 +11,6 @@ namespace Catelog.API.Products.Commands.CreateProduct
         private readonly IDocumentSession _documentSession = documentSession;
         public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
-            // create Product entity from command object 
-            // save to database
-            //return CreateProductResult result
-
-            //var product = new Product
-            //{
-            //    Name = command.Name,
-            //    Category = command.Category,
-            //    Description = command.Description,
-            //    ImgaeFile = command.ImgaeFile,
-            //    Price = command.Price
-            //};
             var product = command.Adapt<Product>();
             _documentSession.Store(product);
             await _documentSession.SaveChangesAsync(cancellationToken);
