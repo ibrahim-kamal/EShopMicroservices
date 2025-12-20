@@ -1,5 +1,4 @@
-﻿
-namespace Catelog.API.Products.Query
+﻿namespace Catelog.API.Products.Query.GetProducts
 {
     public class GetProductsEndPoint : CarterModule
     {
