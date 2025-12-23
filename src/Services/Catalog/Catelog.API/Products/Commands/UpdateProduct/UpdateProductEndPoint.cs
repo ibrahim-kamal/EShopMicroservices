@@ -1,4 +1,6 @@
 ﻿
+using Catelog.API.Products.Commands.CreateProduct;
+
 namespace Catelog.API.Products.Commands.UpdateProduct
 {
     public record UpdateProductRequest(Guid Id,string Name, List<string> Category, string Description, string ImgaeFile, decimal Price);
