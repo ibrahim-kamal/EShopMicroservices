@@ -5,3 +5,4 @@ global using BuildingBlocks.CQRS;
 global using Catelog.API.Models;
 global using Marten;
 global using Catelog.API.Exceptions;
+global using FluentValidation;
