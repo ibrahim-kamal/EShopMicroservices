@@ -14,7 +14,7 @@ namespace Catelog.API.Products.Commands.UpdateProduct
             _logger.LogInformation("UpdateProductHandler.Handle called with (@command)", command);
             var product = await _documentSession.LoadAsync<Product>(command.Id, cancellationToken);
             if (product is null)
-                throw new ProductNotFoundException();
+                throw new ProductNotFoundException(command.Id);
             command.Adapt(product);
             _documentSession.Update(product);
             await _documentSession.SaveChangesAsync();
