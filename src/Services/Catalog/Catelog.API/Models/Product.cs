@@ -6,7 +6,7 @@
         public string Name { get; set; }
         public List<string> Category { get; set; } = new();
         public string Description { get; set; }
-        public string ImgaeFile { get; set; }
+        public string ImageFile { get; set; }
         public decimal Price { get; set; }
     }
 }

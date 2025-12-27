@@ -6,6 +6,7 @@ var assembly = typeof(Program).Assembly;
 builder.Services.AddMediatR(config => {
     config.RegisterServicesFromAssembly(assembly);
     config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+    config.AddOpenBehavior(typeof(LoggingBehavior<,>));
 });
 
 builder.Services.AddValidatorsFromAssembly(assembly);
@@ -21,14 +22,11 @@ builder.Services.AddMarten(options =>
 
 builder.Services.AddSwaggerGen();
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
+if (builder.Environment.IsDevelopment())
+    builder.Services.InitializeMartenWith<CatelogInitialData>();
+
 var app = builder.Build();
-
-
-
-
-
-
-
 
 app.MapCarter();
 app.UseSwagger();

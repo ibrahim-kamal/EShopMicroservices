@@ -1,21 +1,35 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace BuildingBlocks.Behaviors
 {
-    public class LoggingBehavior<TRequest, TResponse>(ILogger<LoggingBehavior> logger)
+    public class LoggingBehavior<TRequest, TResponse>(ILogger<LoggingBehavior<TRequest, TResponse>> logger)
         : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : notnull, IRequest<TRequest>
+        where TRequest : notnull, IRequest<TResponse>
         where TResponse : notnull
     {
-        public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+        public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
+            logger.LogInformation("[START] Handle request=(Request) - Response={Response} - RequestData={RequestData}",
+                typeof(TRequest).Name,typeof(TResponse).Name,request);
+            var timer = new Stopwatch();
+            timer.Start();
 
+            var response = await next();
+
+            timer.Stop();
+
+            var timeToken = timer.Elapsed;
+
+            if (timeToken.Seconds > 3)
+                logger.LogWarning("[PERFORMANCE] Thre request {Request} took {TimeTaken} Seconds",
+                    typeof(TRequest).Name, timeToken.Seconds);
+
+            logger.LogInformation("[End] Handle (Request) With {Response} ",
+                typeof(TRequest).Name, typeof(TResponse).Name);
+
+            return response;
         }
     }
 }
