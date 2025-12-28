@@ -5,7 +5,7 @@ using FluentValidation;
 namespace Catelog.API.Products.Commands.CreateProduct
 {
     public record CreateProductCommand(
-        string Name,List<string> Category ,string Description,string ImgaeFile,decimal Price
+        string Name,List<string> Category ,string Description,string ImageFile,decimal Price
         ) : ICommand<CreateProductResult>;
     public record CreateProductResult(Guid Id);
     internal class CreateProductCommandHandler(IDocumentSession documentSession) : ICommandHandler<CreateProductCommand, CreateProductResult>

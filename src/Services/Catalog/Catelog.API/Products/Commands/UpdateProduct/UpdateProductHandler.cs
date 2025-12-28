@@ -1,7 +1,7 @@
 ﻿
 namespace Catelog.API.Products.Commands.UpdateProduct
 {
-    public record UpdateProductCommand(Guid Id, string Name, List<string> Category, string Description, string ImgaeFile, decimal Price) : ICommand<UpdateProductResult>;
+    public record UpdateProductCommand(Guid Id, string Name, List<string> Category, string Description, string ImageFile, decimal Price) : ICommand<UpdateProductResult>;
     public record UpdateProductResult(bool IsSuccess);
     public class UpdateProductHandler(IDocumentSession documentSession)
         :ICommandHandler<UpdateProductCommand, UpdateProductResult>

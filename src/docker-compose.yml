@@ -3,5 +3,12 @@ services:
   image: postgres:17-alpine
 
 
+ catelog.api:
+   image: ${DOCKER_REGISTRY-}catelogapi
+   build:
+    context: .
+    dockerfile: Services/Catalog/Catelog.API/Dockerfile
+
 volumes:
  postgres_catalog:
+

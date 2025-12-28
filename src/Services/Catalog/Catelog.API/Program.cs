@@ -23,7 +23,7 @@ builder.Services.AddMarten(options =>
     options.Connection(builder.Configuration.GetConnectionString("Database")!);
 }).UseLightweightSessions();
 
-builder.Services.AddSwaggerGen();
+
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 if (builder.Environment.IsDevelopment())
@@ -35,8 +35,7 @@ builder.Services.AddHealthChecks()
 var app = builder.Build();
 
 app.MapCarter();
-app.UseSwagger();
-app.UseSwaggerUI();
+
 
 app.UseExceptionHandler(options => { });
 

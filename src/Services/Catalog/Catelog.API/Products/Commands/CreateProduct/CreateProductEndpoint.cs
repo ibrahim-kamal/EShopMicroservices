@@ -1,6 +1,6 @@
 ﻿namespace Catelog.API.Products.Commands.CreateProduct
 {
-    public record CreateProductRequest(string Name, List<string> Category, string Description, string ImgaeFile, decimal Price);
+    public record CreateProductRequest(string Name, List<string> Category, string Description, string imageFile, decimal Price);
     public record CreateProductResponse(Guid Id);
     public class CreateProductEndPoint : ICarterModule
     {
