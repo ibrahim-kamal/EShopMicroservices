@@ -12,15 +12,22 @@ builder.Services.AddMediatR(config =>
 //builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 builder.Services.AddCarter();
 
-//builder.Services.AddMarten(options =>
-//{
-//    options.Connection(builder.Configuration.GetConnectionString("Database")!);
-//}).UseLightweightSessions();
+builder.Services.AddMarten(options =>
+{
+    options.Connection(builder.Configuration.GetConnectionString("Database")!);
+    options.Schema.For<ShoppingCart>().Identity(x => x.UserName);
+}).UseLightweightSessions();
+
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
+builder.Services.AddScoped<IBasketRepository, IBasketRepository>();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.MapCarter();
 
- app.Run();
+app.UseExceptionHandler(config => { });
+
+app.Run();
 

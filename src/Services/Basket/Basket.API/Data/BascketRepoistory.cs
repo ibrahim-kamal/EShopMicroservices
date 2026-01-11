@@ -1,4 +1,8 @@
-﻿namespace Basket.API.Data
+﻿
+
+using Marten;
+
+namespace Basket.API.Data
 {
     public class BascketRepoistory(IDocumentSession documentSession) : IBasketRepository
     {
@@ -7,15 +11,19 @@
             var basket = await documentSession.LoadAsync<ShoppingCart>(userName, cancellationToken);
             return basket is null ? throw new BasketNotFoundException(userName) : basket; 
         }
-        public Task<bool> DeleteBasket(string userName, CancellationToken cancellationToken = default)
+        public async Task<bool> DeleteBasket(string userName, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            documentSession.Delete<ShoppingCart>(userName);
+            await documentSession.SaveChangesAsync();
+            return true;
         }
 
 
-        public Task<ShoppingCart> StoreBasket(ShoppingCart basket, CancellationToken cancellationToken = default)
+        public async Task<ShoppingCart> StoreBasket(ShoppingCart basket, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            documentSession.Store<ShoppingCart>(basket);
+            await documentSession.SaveChangesAsync();
+            return basket;
         }
     }
 }
