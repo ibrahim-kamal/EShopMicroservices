@@ -20,7 +20,7 @@ builder.Services.AddMarten(options =>
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
-builder.Services.AddScoped<IBasketRepository, IBasketRepository>();
+builder.Services.AddScoped<IBasketRepository, BascketRepoistory>();
 
 var app = builder.Build();
 
