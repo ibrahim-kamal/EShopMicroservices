@@ -1,20 +1,32 @@
-﻿namespace Basket.API.Data
+﻿using Microsoft.Extensions.Caching.Distributed;
+using System.Text.Json;
+
+namespace Basket.API.Data
 {
-    public class CacheBascketRepoistory : IBasketRepository
+    public class CacheBascketRepoistory(IBasketRepository basketRepository,IDistributedCache cache) : IBasketRepository
     {
-        public Task<bool> DeleteBasket(string userName, CancellationToken cancellationToken = default)
+        public async Task<ShoppingCart> GetBasket(string userName, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var cachedBasket = await cache.GetStringAsync(userName, cancellationToken);
+            if(!string.IsNullOrEmpty(cachedBasket))
+                return JsonSerializer.Deserialize<ShoppingCart>(cachedBasket)!;
+            var basket = await basketRepository.GetBasket(userName, cancellationToken);
+            await cache.SetStringAsync(userName,JsonSerializer.Serialize(basket),cancellationToken);
+            return basket;
         }
 
-        public Task<ShoppingCart> GetBasket(string userName, CancellationToken cancellationToken = default)
+        public async Task<ShoppingCart> StoreBasket(ShoppingCart basket, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            await basketRepository.StoreBasket(basket, cancellationToken);
+            await cache.SetStringAsync(basket.UserName, JsonSerializer.Serialize(basket), cancellationToken);
+            return basket;
         }
 
-        public Task<ShoppingCart> StoreBasket(ShoppingCart basket, CancellationToken cancellationToken = default)
+        public async Task<bool> DeleteBasket(string userName, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            await basketRepository.DeleteBasket(userName, cancellationToken);
+            await cache.RemoveAsync(userName, cancellationToken);
+            return true;
         }
     }
 }
