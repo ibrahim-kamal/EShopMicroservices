@@ -24,10 +24,22 @@ builder.Services.AddMarten(options =>
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 builder.Services.AddScoped<IBasketRepository, BascketRepoistory>();
-builder.Services.AddScoped<IBasketRepository>(provider => {
-    var basketRepository = provider.GetRequiredService<BascketRepoistory>();
-    return new CacheBascketRepoistory(basketRepository, provider.GetRequiredService<IDistributedCache>());
+
+/* manually create decorate cache basket repository */
+//builder.Services.AddScoped<IBasketRepository>(provider => {
+//    var basketRepository = provider.GetRequiredService<BascketRepoistory>();
+//    return new CacheBascketRepoistory(basketRepository, provider.GetRequiredService<IDistributedCache>());
+//});
+
+/* create decorate using Scrutor library */
+builder.Services.Decorate<IBasketRepository, CacheBascketRepoistory>();
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("Redis");
+    options.InstanceName = "Basket";
 });
+
+
 
 var app = builder.Build();
 
