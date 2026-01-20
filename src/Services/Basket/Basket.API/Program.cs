@@ -1,3 +1,6 @@
+using Basket.API.Data;
+using Microsoft.Extensions.Caching.Distributed;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -21,6 +24,10 @@ builder.Services.AddMarten(options =>
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 builder.Services.AddScoped<IBasketRepository, BascketRepoistory>();
+builder.Services.AddScoped<IBasketRepository>(provider => {
+    var basketRepository = provider.GetRequiredService<BascketRepoistory>();
+    return new CacheBascketRepoistory(basketRepository, provider.GetRequiredService<IDistributedCache>());
+});
 
 var app = builder.Build();
 
