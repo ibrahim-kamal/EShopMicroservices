@@ -30,6 +30,5 @@ services:
 volumes:
  postgres_catalog:
  postgres_basket:
- discount-data:
 
 
