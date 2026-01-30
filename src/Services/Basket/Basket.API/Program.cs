@@ -8,6 +8,7 @@ using Microsoft.Extensions.Caching.Distributed;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+#region Application Services
 //Application Services
 builder.Services.AddCarter();
 var assembly = typeof(Program).Assembly;
@@ -17,6 +18,9 @@ builder.Services.AddMediatR(config =>
     config.AddOpenBehavior(typeof(ValidationBehavior<,>));
     config.AddOpenBehavior(typeof(LoggingBehavior<,>));
 });
+#endregion
+
+#region Data Services
 
 // Data Services
 builder.Services.AddMarten(options =>
@@ -43,6 +47,9 @@ builder.Services.AddStackExchangeRedisCache(options =>
     options.InstanceName = "Basket";
 });
 
+#endregion
+
+#region GRPC Services
 // GRPC Services
 builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(options => {
     options.Address = new Uri(builder.Configuration["GrpcSettings:DiscountUrl"]!);
@@ -52,13 +59,16 @@ builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(
         ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
     };
 });
+#endregion 
 
+#region  Cross-Cutting Services
+// Cross-Cutting Services
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
-
 builder.Services.AddHealthChecks()
     .AddNpgSql(builder.Configuration.GetConnectionString("Database")!)
     .AddRedis(builder.Configuration.GetConnectionString("Redis")!);
 
+#endregion
 
 var app = builder.Build();
 
