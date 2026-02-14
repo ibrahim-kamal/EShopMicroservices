@@ -21,21 +21,4 @@ namespace Ordering.Infrastructure.Data.Configurations
         }
 
     }
-    public class OrderConfiguration : IEntityTypeConfiguration<Order>
-    {
-        public void Configure(EntityTypeBuilder<Order> builder)
-        {
-            builder.HasKey(c => c.Id);
-
-            builder.Property(c => c.Id)
-                .HasConversion(OrderId => OrderId.Value, dbId => OrderId.Of(dbId));
-
-            builder.Property(o => o.CustomerId)
-                .HasConversion(customerId => customerId.Value, dbId => CustomerId.Of(dbId));
-
-            builder.Property(o => o.OrderName)
-                .HasConversion(orderName => orderName.Value, dbName => OrderName.Of(dbName));
-        }
-
-    }
 }

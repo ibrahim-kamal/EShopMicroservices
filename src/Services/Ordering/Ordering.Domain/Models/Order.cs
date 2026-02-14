@@ -8,7 +8,7 @@ namespace Ordering.Domain.Models
 
 
         public IReadOnlyList<OrderItem> OrderItems => _orderItems.AsReadOnly();
-        public CustomerId CustomerId { get; private set } = default!;
+        public CustomerId CustomerId { get; private set; } = default!;
         public OrderName OrderName { get; private set; } = default!;
         public Address ShippiungAddress { get; private set; } = default!;
         public Address BillingAddress { get; private set; } = default!;
