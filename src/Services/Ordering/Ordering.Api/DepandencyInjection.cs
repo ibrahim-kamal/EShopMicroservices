@@ -10,7 +10,7 @@ namespace Ordering.Api
             services.AddCarter();
             services.AddMediatR(config =>
             {
-                config.RegisterServicesFromAssembly(typeof(Program).Assembly),
+                config.RegisterServicesFromAssembly(typeof(Program).Assembly);
                 config.AddOpenBehavior(typeof(ValidationBehavior<,>));
                 config.AddOpenBehavior(typeof(LoggingBehavior<,>));
 
