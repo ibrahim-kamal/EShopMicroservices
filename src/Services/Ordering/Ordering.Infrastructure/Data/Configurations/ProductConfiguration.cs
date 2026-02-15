@@ -9,11 +9,13 @@ namespace Ordering.Infrastructure.Data.Configurations
 
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.HasKey(c => c.Id);
+            builder.HasKey(p => p.Id);
 
-            builder.Property(c => c.Id)
-                .HasConversion(ProductId => ProductId.Value, dbId => ProductId.Of(dbId));
-            builder.Property(c => c.Name).HasMaxLength(100).IsRequired();
+            builder.Property(p => p.Id).HasConversion(
+                            productId => productId.Value,
+                            dbId => ProductId.Of(dbId));
+
+            builder.Property(p => p.Name).HasMaxLength(100).IsRequired();
         }
     }
 }

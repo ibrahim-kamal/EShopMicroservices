@@ -10,7 +10,7 @@ namespace Ordering.Domain.Models
         public IReadOnlyList<OrderItem> OrderItems => _orderItems.AsReadOnly();
         public CustomerId CustomerId { get; private set; } = default!;
         public OrderName OrderName { get; private set; } = default!;
-        public Address ShippiungAddress { get; private set; } = default!;
+        public Address ShippingAddress { get; private set; } = default!;
         public Address BillingAddress { get; private set; } = default!;
         public Payment Payment { get; private set; } = default!;
         public OrderStatus Status { get; private set; } = OrderStatus.Pending;
@@ -19,13 +19,13 @@ namespace Ordering.Domain.Models
             private set { }
         }
 
-        private Order create (OrderId id, CustomerId customerId, OrderName orderName, Address shippiungAddress, Address billingAddress, Payment payment, OrderStatus status, decimal totalPrice)
+        private Order create (OrderId id, CustomerId customerId, OrderName orderName, Address shippingAddress, Address billingAddress, Payment payment, OrderStatus status, decimal totalPrice)
         {
             var order = new Order {
                 Id = id,
                 CustomerId = customerId,
                 OrderName = orderName,
-                ShippiungAddress = shippiungAddress,
+                ShippingAddress = shippingAddress,
                 BillingAddress = billingAddress,
                 Payment = payment,
                 Status = status,
@@ -39,10 +39,10 @@ namespace Ordering.Domain.Models
         }
 
 
-        public void Update(OrderName orderName, Address shippiungAddress, Address billingAddress, Payment payment, OrderStatus status)
+        public void Update(OrderName orderName, Address shippingAddress, Address billingAddress, Payment payment, OrderStatus status)
         {
             OrderName = orderName;
-            ShippiungAddress = shippiungAddress;
+            ShippingAddress = shippingAddress;
             BillingAddress = billingAddress;
             Payment = payment;
             Status = status;

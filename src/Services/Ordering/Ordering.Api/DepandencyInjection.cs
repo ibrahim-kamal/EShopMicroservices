@@ -1,5 +1,5 @@
 ﻿using BuildingBlocks.Behaviors;
-using Carter;
+//using Carter;
 
 namespace Ordering.Api
 {
@@ -7,7 +7,7 @@ namespace Ordering.Api
     {
         public static IServiceCollection AddApiServices(this IServiceCollection services)
         {
-            services.AddCarter();
+            //services.AddCarter();
             services.AddMediatR(config =>
             {
                 config.RegisterServicesFromAssembly(typeof(Program).Assembly);
@@ -19,7 +19,7 @@ namespace Ordering.Api
         }
 
         public static WebApplication UseApiServices(this WebApplication app) {
-            app.MapCarter();
+            //app.MapCarter();
             return app;
         }
     }

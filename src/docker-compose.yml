@@ -8,6 +8,9 @@ services:
  distributedcache:
   image: redis
 
+ orderdb:
+  image: mcr.microsoft.com/mssql/server
+
  catelog.api:
    image: ${DOCKER_REGISTRY-}catelogapi
    build:
