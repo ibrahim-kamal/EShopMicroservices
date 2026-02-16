@@ -19,7 +19,7 @@ namespace Ordering.Domain.Models
             private set { }
         }
 
-        private Order create (OrderId id, CustomerId customerId, OrderName orderName, Address shippingAddress, Address billingAddress, Payment payment, OrderStatus status, decimal totalPrice)
+        public static Order Create (OrderId id, CustomerId customerId, OrderName orderName, Address shippingAddress, Address billingAddress, Payment payment)
         {
             var order = new Order {
                 Id = id,
@@ -28,8 +28,7 @@ namespace Ordering.Domain.Models
                 ShippingAddress = shippingAddress,
                 BillingAddress = billingAddress,
                 Payment = payment,
-                Status = status,
-                TotalPrice = totalPrice,
+                Status = OrderStatus.Pending,
             };
 
             order.AddDomainEvents(new OrderCreatedEvent(order));

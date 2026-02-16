@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="NewFolder - Copy\" />
     <Folder Include="NewFolder\" />
   </ItemGroup>
 
