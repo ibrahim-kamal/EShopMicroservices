@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Ordering.Application.Orders.Queries.GetOrderByName
 {
-    public record GetOrderByNameQuery(string OrderName) : IQuery<GetOrderByNameResult>;
+    public record GetOrdersByNameQuery(string OrderName) : IQuery<GetOrdersByNameResult>;
 
-    public record GetOrderByNameResult(IEnumerable<OrderDto> Order);
+    public record GetOrdersByNameResult(IEnumerable<OrderDto> Order);
 
 }

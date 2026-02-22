@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Ordering.Application.Orders.Queries.GetOrderByCustomer
 {
-    public record GetOrderByCustomerQuery(Guid CustomerId) : IQuery<GetOrderByCustomerResult>;
+    public record GetOrdersByCustomerQuery(Guid CustomerId) : IQuery<GetOrdersByCustomerResult>;
 
-    public record GetOrderByCustomerResult(IEnumerable<OrderDto> Order);
+    public record GetOrdersByCustomerResult(IEnumerable<OrderDto> Order);
 
 }

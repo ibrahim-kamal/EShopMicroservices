@@ -42,7 +42,7 @@ namespace Ordering.Application.Orders.Commands.UpdateOrder
                 orderDto.ShippingAddress.State,
                 orderDto.ShippingAddress.ZipCode);
 
-            var payment = Payment.Of(orderDto.Payment.CardName, orderDto.Payment.CardNumber, orderDto.Payment.Expiration, orderDto.Payment.CVV, orderDto.Payment.PaymentMethod)
+            var payment = Payment.Of(orderDto.Payment.CardName, orderDto.Payment.CardNumber, orderDto.Payment.Expiration, orderDto.Payment.Cvv, orderDto.Payment.PaymentMethod);
 
             var orderId = OrderId.Of(Guid.NewGuid());
             var customerId = CustomerId.Of(orderDto.CustomerId);

@@ -3,7 +3,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Ordering.Application.Data;
 using Ordering.Infrastructure.Interceptors;
-using System.Reflection;
 
 namespace Ordering.Infrastructure
 {
@@ -18,7 +17,7 @@ namespace Ordering.Infrastructure
 
             services.AddDbContext<ApplicationDbContext>(
                 (serviceProvider , options) => {
-                    options.AddInterceptors(serviceProvider.GetService<ISaveChangesInterceptor>());
+                    options.AddInterceptors(serviceProvider.GetServices<ISaveChangesInterceptor>());
                     options.UseSqlServer(connectionString);
                 }
             );

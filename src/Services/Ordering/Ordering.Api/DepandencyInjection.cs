@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.Behaviors;
+using BuildingBlocks.Exceptions.Handler;
 //using Carter;
 
 namespace Ordering.Api
@@ -7,19 +8,14 @@ namespace Ordering.Api
     {
         public static IServiceCollection AddApiServices(this IServiceCollection services)
         {
-            //services.AddCarter();
-            services.AddMediatR(config =>
-            {
-                config.RegisterServicesFromAssembly(typeof(Program).Assembly);
-                config.AddOpenBehavior(typeof(ValidationBehavior<,>));
-                config.AddOpenBehavior(typeof(LoggingBehavior<,>));
-
-            });
+            services.AddCarter();
+            services.AddExceptionHandler<CustomExceptionHandler>();
             return services;
         }
 
         public static WebApplication UseApiServices(this WebApplication app) {
-            //app.MapCarter();
+            app.MapCarter();
+            app.UseExceptionHandler(options => { });
             return app;
         }
     }

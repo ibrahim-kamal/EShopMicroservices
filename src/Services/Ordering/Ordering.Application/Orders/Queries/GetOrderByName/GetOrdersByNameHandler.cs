@@ -1,9 +1,9 @@
 ﻿namespace Ordering.Application.Orders.Queries.GetOrderByName
 {
-    public class GetOrderByNameHandler(IApplicationDbContext context) 
-        : IQueryHandler<GetOrderByNameQuery, GetOrderByNameResult>
+    public class GetOrdersByNameHandler(IApplicationDbContext context) 
+        : IQueryHandler<GetOrdersByNameQuery, GetOrdersByNameResult>
     {
-        public async Task<GetOrderByNameResult> Handle(GetOrderByNameQuery qurey, CancellationToken cancellationToken)
+        public async Task<GetOrdersByNameResult> Handle(GetOrdersByNameQuery qurey, CancellationToken cancellationToken)
         {
             var orders = await context.Orders
                 .Include(o => o.OrderItems)
@@ -12,7 +12,7 @@
                 .OrderBy(o => o.OrderName)
                 //.ProjectToType<OrderDto>()
                 .ToListAsync(cancellationToken);
-            return new GetOrderByNameResult(orders.ToOrderDtoList());
+            return new GetOrdersByNameResult(orders.ToOrderDtoList());
         }
     }
 }

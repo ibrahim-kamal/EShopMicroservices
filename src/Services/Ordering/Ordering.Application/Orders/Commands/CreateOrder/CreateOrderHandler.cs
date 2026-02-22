@@ -2,9 +2,9 @@
 
 namespace Ordering.Application.Orders.Commands.CreateOrder
 {
-    class CreateOrderHandler(IApplicationDbContext context) : ICommandHandler<UpdateOrderCommand, CreateOrderResult>
+    class CreateOrderHandler(IApplicationDbContext context) : ICommandHandler<CreateOrderCommand, CreateOrderResult>
     {
-        public async Task<CreateOrderResult> Handle(UpdateOrderCommand command, CancellationToken cancellationToken)
+        public async Task<CreateOrderResult> Handle(CreateOrderCommand command, CancellationToken cancellationToken)
         {
             //create order entity from command object 
             var order = CreateNewOrder(command.order);
@@ -33,7 +33,7 @@ namespace Ordering.Application.Orders.Commands.CreateOrder
                 orderDto.ShippingAddress.State,
                 orderDto.ShippingAddress.ZipCode);
 
-            var payment = Payment.Of(orderDto.Payment.CardName, orderDto.Payment.CardNumber, orderDto.Payment.Expiration, orderDto.Payment.CVV, orderDto.Payment.PaymentMethod)
+            var payment = Payment.Of(orderDto.Payment.CardName, orderDto.Payment.CardNumber, orderDto.Payment.Expiration, orderDto.Payment.Cvv, orderDto.Payment.PaymentMethod);
 
             var orderId = OrderId.Of(Guid.NewGuid());
             var customerId = CustomerId.Of(orderDto.CustomerId);
