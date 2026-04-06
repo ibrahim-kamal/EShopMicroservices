@@ -1,12 +1,11 @@
-﻿
-namespace BuildingBlocks.Messaging.Events
+﻿namespace Basket.API.Dtos
 {
-    public record BasketCheckoutEvent : IntegrationEvent
+    public class BasketCheckoutDto
     {
         public string Username { get; set; } = default!;
         public Guid CustomerId { get; set; } = default!;
         public decimal TotalPrice { get; set; } = default!;
-        public string FirstName { get; set;  } = default!;
+        public string FirstName { get; set; } = default!;
         public string LastName { get; set; } = default!;
         public string? EmailAddress { get; set; } = default!;
         public string AddressLine { get; set; } = default!;
@@ -20,6 +19,5 @@ namespace BuildingBlocks.Messaging.Events
         public string Expiration { get; set; } = default!;
         public string CVV { get; set; } = default!;
         public int PaymentMethod { get; set; } = default!;
-
     }
 }

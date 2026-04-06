@@ -1,4 +1,5 @@
 using Basket.API.Data;
+using BuildingBlocks.Messaging.MassTransit;
 using Discount.Grpc;
 using HealthChecks.UI.Client;
 using HealthChecks.UI.Core;
@@ -59,7 +60,11 @@ builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(
         ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
     };
 });
+
+builder.Services.AddMessageBroker(builder.Configuration);
+
 #endregion 
+
 
 #region  Cross-Cutting Services
 // Cross-Cutting Services

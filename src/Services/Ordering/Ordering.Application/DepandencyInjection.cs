@@ -1,14 +1,16 @@
 ﻿using BuildingBlocks.Behaviors;
+using BuildingBlocks.Messaging.MassTransit;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Reflection;
 
 namespace Ordering.Application
 {
     public static class DepandencyInjection
     {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services,IConfiguration configuration)
         {
             services.AddMediatR(config =>
             {
@@ -17,6 +19,7 @@ namespace Ordering.Application
                 config.AddOpenBehavior(typeof(LoggingBehavior<,>)) ;
             });
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            services.AddMessageBroker(configuration,Assembly.GetExecutingAssembly());
             return services;
         }
     }
