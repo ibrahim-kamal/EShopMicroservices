@@ -42,6 +42,18 @@ services:
    ports:
     - "1436:1433"
 
+  messagebroker:
+   container_name: messagebroker
+   hostname: ecommerce-mq
+   environment: 
+    - RABBITMQ_DEFAULT_USER=guest
+    - RABBITMQ_DEFAULT_PASSWORD=guest
+   restart: always
+   ports:
+    - "5662:5672"
+    - "15662:15672"
+
+
   catelog.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development

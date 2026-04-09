@@ -10,6 +10,9 @@ services:
 
  orderdb:
   image: mcr.microsoft.com/mssql/server
+ 
+ messagebroker:
+  image: rabbitmq:4-management
 
  catelog.api:
    image: ${DOCKER_REGISTRY-}catelogapi
