@@ -1,16 +1,18 @@
 ﻿using MassTransit;
+using Microsoft.FeatureManagement;
 
 namespace Ordering.Application.Orders.EventHandler.Domain
 {
-    public class OrderCreatedEventHandler(IPublishEndpoint publishEndpoint,ILogger<OrderCreatedEventHandler> logger) : INotificationHandler<OrderCreatedEvent>
+    public class OrderCreatedEventHandler(IPublishEndpoint publishEndpoint,IFeatureManager featureManager,ILogger<OrderCreatedEventHandler> logger) : INotificationHandler<OrderCreatedEvent>
     {
         public async Task Handle(OrderCreatedEvent domainEvent, CancellationToken cancellationToken)
         {
             logger.LogInformation("Domain Event handled: {DomainEvent}", domainEvent.GetType().Name);
+            if (await featureManager.IsEnabledAsync("featureManager")) { 
+                var orderCreateIntegrationEvent = domainEvent.order.ToOrderDto();
 
-            var orderCreateIntegrationEvent = domainEvent.order.ToOrderDto();
-
-            await publishEndpoint.Publish(orderCreateIntegrationEvent,cancellationToken);
+                await publishEndpoint.Publish(orderCreateIntegrationEvent,cancellationToken);
+            }
         }
     }
 }
