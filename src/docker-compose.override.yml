@@ -55,6 +55,7 @@ services:
 
 
   catelog.api:
+    container_name: Catelog.Api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
