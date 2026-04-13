@@ -8,7 +8,7 @@ namespace Ordering.Application.Orders.EventHandler.Domain
         public async Task Handle(OrderCreatedEvent domainEvent, CancellationToken cancellationToken)
         {
             logger.LogInformation("Domain Event handled: {DomainEvent}", domainEvent.GetType().Name);
-            if (await featureManager.IsEnabledAsync("featureManager")) { 
+            if (await featureManager.IsEnabledAsync("OrderFullfilment")) { 
                 var orderCreateIntegrationEvent = domainEvent.order.ToOrderDto();
 
                 await publishEndpoint.Publish(orderCreateIntegrationEvent,cancellationToken);

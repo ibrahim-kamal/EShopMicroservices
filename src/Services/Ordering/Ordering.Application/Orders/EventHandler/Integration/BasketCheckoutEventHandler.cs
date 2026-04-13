@@ -7,7 +7,8 @@ using System.Reflection.Emit;
 
 namespace Ordering.Application.Orders.EventHandler.Integration
 {
-    public class BasketCheckoutEventHandler(ISender sender,ILogger<BasketCheckoutEventHandler> logger) : IConsumer<BasketCheckoutEvent>
+    public class BasketCheckoutEventHandler(ISender sender,ILogger<BasketCheckoutEventHandler> logger) 
+        : IConsumer<BasketCheckoutEvent>
     {
         public async Task Consume(ConsumeContext<BasketCheckoutEvent> context)
         {
@@ -16,7 +17,6 @@ namespace Ordering.Application.Orders.EventHandler.Integration
             BasketCheckoutEvent data = context.Message;
             var command = MapToCreateOrderCommand(context.Message);
             await sender.Send(command);
-            throw new NotImplementedException();
         }
 
         private CreateOrderCommand MapToCreateOrderCommand(BasketCheckoutEvent basketcheckoutEvent)
@@ -57,7 +57,7 @@ namespace Ordering.Application.Orders.EventHandler.Integration
                     ),
                     Ordering.Domain.Enums.OrderStatus.Pending,
                     new List<OrderItemDto> { 
-                        new OrderItemDto(orderId,new Guid("4f136e9f-ff8c-4c1f-9a33-d12f689bdab8"),2,500)
+                        new OrderItemDto(orderId,new Guid("4f136e9f-ff8c-4c1f-9a33-d12f689bdab8"),2,500),
                         new OrderItemDto(orderId,new Guid("6ec1297b-ec0a-4aa1-be25-6726e3b51a27"),1,400)
                     }
 
