@@ -9,7 +9,7 @@
                 .Include(o => o.OrderItems)
                 .AsNoTracking()
                 .Where(o => o.OrderName.Value.Contains(qurey.OrderName))
-                .OrderBy(o => o.OrderName)
+                .OrderBy(o => o.OrderName.Value)
                 //.ProjectToType<OrderDto>()
                 .ToListAsync(cancellationToken);
             return new GetOrdersByNameResult(orders.ToOrderDtoList());

@@ -40,11 +40,18 @@ services:
    dockerfile: Services/Ordering/Ordering.Api/Dockerfile
       
 
+ yarppapigateway:
+  image: ${DOCKER_REGISTRY-}yarppapigateway
+  build:
+   context: .
+   dockerfile: ApiGateways/YarpPApiGateWay/Dockerfile
+
 volumes:
  postgres_catalog:
  postgres_basket:
  sqlserver_order:
  rabbitmq_data:
+
 
 
 
