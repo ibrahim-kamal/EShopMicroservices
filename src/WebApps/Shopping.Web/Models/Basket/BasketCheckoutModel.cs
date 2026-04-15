@@ -21,4 +21,5 @@
         public int PaymentMethod { get; set; } = default!;
     }
     public record CheckBasketRequest(BasketCheckoutModel BasketCheckoutDto);
+    public record CheckBasketResponse(string userName);
 }
