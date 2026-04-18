@@ -1,4 +1,4 @@
-﻿using BuildingBlocks.Pagination;
+﻿
 
 namespace Shopping.Web.Models.Order
 {

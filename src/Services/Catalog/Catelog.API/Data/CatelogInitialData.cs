@@ -19,7 +19,7 @@ namespace Catelog.API.Data
             new Product
             {
                 Id = Guid.Parse("a3f4b2d1-6c8e-4a5b-9d3e-1f8a2c4e7b90"),
-                Name = "Laptop Pro 16",
+                Name = " Laptop Pro 16",
                 Category = new List<string> { "Electronics", "Computers" },
                 Description = "High performance laptop for developers",
                 ImageFile = "laptop.png",
