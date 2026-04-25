@@ -3,7 +3,7 @@
 public interface IBasketService
 {
 
-    [Get("/basket//Basket/{userName}")]
+    [Get("/basket/Basket/{userName}")]
     Task<GetBasketResponse> GetBasket(string userName);
 
     [Post("/basket/basket")]

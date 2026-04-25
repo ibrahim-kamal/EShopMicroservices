@@ -18,7 +18,7 @@
             Cart = await _basketService.LoadUserBasket();
             Cart.Items.RemoveAll(i => i.ProductId == productId);
             await _basketService.StoreBasket(new StoreBasketRequest(Cart));
-            return RedirectToPage();
+            return RedirectToPage("Cart");
         }
     }
 }

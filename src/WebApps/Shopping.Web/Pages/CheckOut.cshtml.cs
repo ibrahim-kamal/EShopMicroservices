@@ -10,9 +10,15 @@
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var response = await _basketService.GetBasket("dev");
-            Cart = response.Cart;
-            return Page();
+            try {
+                var response = await _basketService.GetBasket("dev");
+                Cart = response.Cart;
+                return Page();
+            }
+            catch (ApiException apiException) when (apiException.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return RedirectToPage("Cart");
+            }
         }
 
         public async Task<IActionResult> OnPostCheckOutAsync()

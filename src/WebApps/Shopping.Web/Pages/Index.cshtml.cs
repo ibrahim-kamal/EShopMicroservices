@@ -26,7 +26,7 @@ namespace Shopping.Web.Pages
                 ProductId = productId,
                 ProductName =productResponse.Product.Name,
                 Price = productResponse.Product.Price,
-                Quantity = Quantity,
+                Quantity = 1,
                 Color = Color 
             });
 

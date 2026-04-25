@@ -13,6 +13,10 @@ namespace Shopping.Web.Pages
 
         [BindProperty(SupportsGet = true)]
         public string SelectedCategory { get; set; }
+        [BindProperty]
+        public string Color { get; set; } = default;
+        [BindProperty]
+        public int Quantity { get; set; } = default;
 
         public async Task<IActionResult> OnGetAsync(string categoryName)
         {
