@@ -50,9 +50,9 @@ namespace Shopping.Web.Models.Order
         Cancelled = 4
     }
 
-    public record GetOrdersResponse(PaginatedResult<OrderModel> Order);
-    public record GetOrdersByCustomerResponse(IEnumerable<OrderModel> Order);
-    public record GetOrderByNameResponse(IEnumerable<OrderModel> Order);
+    public record GetOrdersResponse(PaginatedResult<OrderModel> Orders);
+    public record GetOrdersByCustomerResponse(IEnumerable<OrderModel> Orders);
+    public record GetOrderByNameResponse(IEnumerable<OrderModel> Orders);
 
 
 }
